@@ -24,7 +24,7 @@ setup(
     '(Bonjour/Avahi compatible)',
     long_description=readme,
     author='Paul Scott-Murphy, William McBrine, Jakub Stasiak',
-    url='https://github.com/jstasiak/python-zeroconf',
+    url='https://github.com/maciekweryszko/python-zeroconf',
     py_modules=['zeroconf'],
     platforms=['unix', 'linux', 'osx'],
     license='LGPL',

@@ -1,126 +1,15 @@
-python-zeroconf
+python-zeroconf (Fork of last Python 2.x supported version)
 ===============
 
-.. image:: https://travis-ci.org/jstasiak/python-zeroconf.svg?branch=master
-    :target: https://travis-ci.org/jstasiak/python-zeroconf
-    
-.. image:: https://img.shields.io/pypi/v/zeroconf.svg
-    :target: https://pypi.python.org/pypi/zeroconf
-
-.. image:: https://img.shields.io/coveralls/jstasiak/python-zeroconf.svg
-    :target: https://coveralls.io/r/jstasiak/python-zeroconf
-
-    
-This is fork of pyzeroconf, Multicast DNS Service Discovery for Python,
-originally by Paul Scott-Murphy (https://github.com/paulsm/pyzeroconf),
-modified by William McBrine (https://github.com/wmcbrine/pyzeroconf).
-
-The original William McBrine's fork note::
-
-    This fork is used in all of my TiVo-related projects: HME for Python
-    (and therefore HME/VLC), Network Remote, Remote Proxy, and pyTivo.
-    Before this, I was tracking the changes for zeroconf.py in three
-    separate repos. I figured I should have an authoritative source.
-    
-    Although I make changes based on my experience with TiVos, I expect that
-    they're generally applicable. This version also includes patches found
-    on the now-defunct (?) Launchpad repo of pyzeroconf, and elsewhere
-    around the net -- not always well-documented, sorry.
-
-Compatible with:
-
-* Bonjour
-* Avahi
-
-Compared to some other Zeroconf/Bonjour/Avahi Python packages, python-zeroconf:
-
-* isn't tied to Bonjour or Avahi
-* doesn't use D-Bus
-* doesn't force you to use particular event loop or Twisted
-* is pip-installable
-* has PyPI distribution
-
-Python compatibility
---------------------
-
-* CPython 2.7, 3.3+
-* PyPy 2.2+ (possibly 1.9-2.1 as well)
-* PyPy3 2.4+
-
-Versioning
-----------
-
-This project's versions follow the following pattern: MAJOR.MINOR.PATCH.
-
-* MAJOR version has been 0 so far
-* MINOR version is incremented on backward incompatible changes
-* PATCH version is incremented on backward compatible changes
-
-Status
-------
-
-There are some people using this package. I don't actively use it and as such
-any help I can offer with regard to any issues is very limited.
-
-
-How to get python-zeroconf?
-===========================
-
+For original: 
 * PyPI page https://pypi.python.org/pypi/zeroconf
 * GitHub project https://github.com/jstasiak/python-zeroconf
 
-The easiest way to install python-zeroconf is using pip::
-
-    pip install zeroconf
-
-
-
-How do I use it?
-================
-
-Here's an example of browsing for a service:
-
-.. code-block:: python
-
-    from six.moves import input
-    from zeroconf import ServiceBrowser, Zeroconf
-    
-    
-    class MyListener(object):
-    
-        def remove_service(self, zeroconf, type, name):
-            print("Service %s removed" % (name,))
-    
-        def add_service(self, zeroconf, type, name):
-            info = zeroconf.get_service_info(type, name)
-            print("Service %s added, service info: %s" % (name, info))
-    
-    
-    zeroconf = Zeroconf()
-    listener = MyListener()
-    browser = ServiceBrowser(zeroconf, "_http._tcp.local.", listener)
-    try:
-        input("Press enter to exit...\n\n")
-    finally:
-        zeroconf.close()
-
-.. note::
-
-    Discovery and service registration use *all* available network interfaces by default.
-    If you want to customize that you need to specify ``interfaces`` argument when
-    constructing ``Zeroconf`` object (see the code for details).
-
-If you don't know the name of the service you need to browse for, try:
-
-.. code-block:: python
-
-    from zeroconf import ZeroconfServiceTypes
-    print('\n'.join(ZeroconfServiceTypes.find()))
-
-See examples directory for more.
-
 Changelog
 =========
+0.19.2
+------
+* Bugfix: allow underscores in instance name prefix (RFC 6763 - 4.1.1)
 
 0.19.1
 ------
